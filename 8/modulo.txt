@@ -1,0 +1,16 @@
+17 % 4
+4 + 4 + 4 + 4 = 16
+If 4 is ever going to be 17
+Count because 4 is smaller than7
+4+4+4+4 is 16. im never goingo be 17, but im close
+enough to add 1, then be 17. Reuturn 1.
+You need to add 1 to make it 17.
+Possiblity for it to return a remainner.
+
+4 % 17
+impossible to return a remainder.
+Is 17 ever going to be 4. Never.
+
+4 % 4
+4 already 4
+
