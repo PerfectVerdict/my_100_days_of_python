@@ -1,11 +1,9 @@
 from game_data import data
 from art import logo
 
-""" returns True if they got it right. False if not """
-
 
 def calculate(score):
-    choice = int(input("Who has more fallowers on instagram?: "))
+    choice = int(input("Who has more followers on Instagram? (1 or 2): "))
     if (
         data[score]["follower_count"] > data[score + 1]["follower_count"]
         and choice == 1
@@ -21,16 +19,8 @@ def calculate(score):
 
 
 def try_again():
-    another_try = input("Do you want to try again? Type yes or no: ")
+    another_try = input("Do you want to try again? Type yes or no: ").lower()
     return another_try == "yes"
-
-
-score = 0
-
-
-def advance_the_question(score):
-    score += 1
-    return data[score + 1]["name"]
 
 
 def play_game(score):
@@ -38,24 +28,24 @@ def play_game(score):
     print(data[score]["name"])
     print("or")
     print(data[score + 1]["name"])
-    if calculate(score):  # If they got it right:
-        print("------------------------------------------")
-        print(advance_the_question(score - 1))
-        print("or")
-        print(advance_the_question(score))
+    correct = calculate(score)  # Only ask once
+    if correct:
+        print("Correct!")
+        score += 1
     else:
-        print("wrong")
-
-    print("\n" * 40)
-
-    print("Welcome to higher or lower!")
+        print("Wrong!")
+    return correct, score  # Return result and updated score
 
 
+# Main game loop
 is_playing = True
 score = 0
 
+print("Welcome to Higher or Lower!")
+
 while is_playing:
-    if not calculate(score):
-        print(score)
-        try_again()
-    play_game(score)
+    correct, score = play_game(score)
+    if not correct:
+        is_playing = try_again()  # Update loop based on user input
+        if is_playing:
+            score = 0  # Reset score if they choose to play again
