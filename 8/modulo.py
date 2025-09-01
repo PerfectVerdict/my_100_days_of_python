@@ -1,140 +1,45 @@
 
-import random
-
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
-playing = True
-def add_card_to_hand(hand):
-    card = random.choice(cards)
-    hand.append(card)
-    return hand
-
-def check_scores(user_score, computer_score):
-    if computer_score == 21:
-        print(f"You lost. User: {user_score}. Computer: {computer_score}")
-    elif user_score == 21 and computer_score == 21:
-        print(f"Its a tie. Computer score: {computer_score}. user_score: {user_score}")
-    elif user_score == 21:
-        print(f"User won with a score of {user_score}")
-    elif user_score > 21:
-        print(f"You lost. Your score: {user_score}.")
-    elif user_score < 21 and computer_score > 21:
-        print(f"You won. Your score: {user_score}. computer_score: {computer_score}.")
-    elif user_score < 21 and computer_score < 21:
-        if user_score > computer_score:
-            print(f"You won. Your score: {user_score}. computer_score: {computer_score}.")
-        elif computer_score > user_score:
-            print(f"You lost. Computer score: {computer_score}. Your score: {user_score}.")
+def calculate(score):
+    choice = int(input("Who has more fallowers on instagram?: "))
+    if (
+        data[score]["follower_count"] > data[score + 1]["follower_count"]
+        and choice == 1
+    ):
+        return True
+    elif (
+        data[score]["follower_count"] < data[score + 1]["follower_count"]
+        and choice == 2
+    ):
+        return True
     else:
-        print("You went over 21")
-    return user_score, computer_score
-
-def play_again():
-    again = input("Do you want to play again? ")
-    if again != "yes":
-        playing = False
-    return again 
-
-def blackjack():
-    playing = True
-    while playing:
-        
-        user_hand = random.sample(cards, 2)
-        computer_hand = random.sample(cards, 2)
-
-        user_score = sum(user_hand)
-        computer_score = sum(computer_hand)
-
-        while sum(computer_hand) < 17:
-            add_card_to_hand(computer_hand)
-            computer_score = sum(computer_hand)
-            check_scores(user_score, computer_score)
-
-        # Handle Aces
-        for i, num in enumerate(user_hand):
-            if num == 11 and user_score > 21:
-                user_hand[i] = 1
-        for i, num in enumerate(computer_hand):
-            if num == 11 and computer_score > 21:
-                computer_hand[i] = 1
-
-        draw_more_cards = input("Do you want to draw more cards?: ").lower()
-        if draw_more_cards == "yes":
-            add_card_to_hand(user_hand)
-            user_score = sum(user_hand)
-
-            check_scores(user_score, computer_score)
-        playing = play_again()
-
-blackjack()
+        return False
 
 
-import random
+score = 0
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-playing = True
-def add_card_to_hand(hand):
-    card = random.choice(cards)
-    hand.append(card)
-    return hand
+def advance_the_question(score):
+    score += 1
+    return data[score + 1]["name"]
 
-def check_scores(user_score, computer_score):
-    if computer_score == 21:
-        print(f"You lost. User: {user_score}. Computer: {computer_score}")
-    elif user_score == 21 and computer_score == 21:
-        print(f"Its a tige. Computer score: {computer_score}. user_score: {user_score}")
-    elif user_score == 21:
-        print(f"User won with a score of {user_score}")
-    elif user_score > 21:
-        print(f"You lost. Your score: {user_score}.")
-    elif user_score < 21 and computer_score > 21:
-        print(f"You won. Your score: {user_score}. computer_score: {computer_score}.")
-    elif user_score < 21 and computer_score < 21:
-        if user_score > computer_score:
-            print(f"You won. Your score: {user_score}. computer_score: {computer_score}.")
-        elif computer_score > user_score:
-            print(f"You lost. Computer score: {computer_score}. Your score: {user_score}.")
+
+def play_game(score):
+    print(logo)
+    print(data[score]["name"])
+    print("or")
+    print(data[score + 1]["name"])
+    if calculate(score):  # If they got it right:
+        print("------------------------------------------")
+        print(advance_the_question(score - 1))
+        print("or")
+        print(advance_the_question(score))
     else:
-        print("You went over 21")
-    return user_score, computer_score
+        print("wrong")
 
-def play_again():
-    again = input("Do you want to play again? ")
-    if again != "yes":
-        playing = False
-    return again 
+    playing = try_again()
+    print("\n" * 40)
 
-def blackjack():
-    playing = True
-    while playing:
-        
-        user_hand = random.sample(cards, 2)
-        computer_hand = random.sample(cards, 2)
+    print("Welcome to higher or lower!")
 
-        user_score = sum(user_hand)
-        computer_score = sum(computer_hand)
 
-        while sum(computer_hand) < 17:
-            add_card_to_hand(computer_hand)
-            computer_score = sum(computer_hand)
-            check_scores(user_score, computer_score)
-
-        # Handle Aces
-        for i, num in enumerate(user_hand):
-            if num == 11 and user_score > 21:
-                user_hand[i] = 1
-        for i, num in enumerate(computer_hand):
-            if num == 11 and computer_score > 21:
-                computer_hand[i] = 1
-
-        draw_more_cards = input("Do you want to draw more cards?: ").lower()
-        if draw_more_cards == "yes":
-            add_card_to_hand(user_hand)
-            user_score = sum(user_hand)
-
-            check_scores(user_score, computer_score)
-        playing = play_again()
-
-blackjack()
-
+play_game(score)

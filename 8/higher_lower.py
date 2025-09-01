@@ -1,6 +1,15 @@
 from game_data import data
 from art import logo
 
+
+""" returns True if they want to keep playing after losing """
+
+
+def try_again():
+    again = input("Do you want to play again? (yes/no): ").lower()
+    return again == "yes"
+
+
 """ returns True if they got it right. False if not """
 
 
@@ -18,11 +27,6 @@ def calculate(score):
         return True
     else:
         return False
-
-
-def try_again():
-    another_try = input("Do you want to try again? Type yes or no: ")
-    return another_try == "yes"
 
 
 score = 0
@@ -46,16 +50,10 @@ def play_game(score):
     else:
         print("wrong")
 
+    playing = try_again()
     print("\n" * 40)
 
     print("Welcome to higher or lower!")
 
 
-is_playing = True
-score = 0
-
-while is_playing:
-    if not calculate(score):
-        print(score)
-        try_again()
-    play_game(score)
+play_game(score)
