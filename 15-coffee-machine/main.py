@@ -1,6 +1,3 @@
-from copyreg import constructor
-
-
 MENU = {
     "espresso": {
         "ingredients": {
@@ -39,6 +36,12 @@ nickel = 0.05
 penny = 0.01
 
 
+# TODO All that's left to do is deduct the resources
+def deduct_resources():
+    for item, amount in MENU[coffee_of_choice]["ingredients"].items():
+        resources[item] -= amount
+
+
 def check_water_resource(water):
     if MENU[coffee_of_choice]["ingredients"]["water"] >= resources["water"]:
         print(f"Machine too low on water for an {coffee_of_choice}")
@@ -54,6 +57,7 @@ def check_milk_resource(milk):
         print(f"Machine too low on milk for an {coffee_of_choice}")
         return False
     else:
+        resources["milk"] = resources["milk"] - MENU[coffee_of_choice]["ingredients"]
         return True
 
 
@@ -119,6 +123,7 @@ def main_loop():
 
             if water_ok and milk_ok and coffe_ok:
                 accept_coins(quarter, dime, nickel, penny)
+                deduct_resources()
 
         else:
             print("Not a valid coffee. Choose espresso, latte, or cappuccino.")
