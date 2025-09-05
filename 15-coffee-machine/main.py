@@ -36,7 +36,6 @@ nickel = 0.05
 penny = 0.01
 
 
-# TODO All that's left to do is deduct the resources
 def deduct_resources():
     for item, amount in MENU[coffee_of_choice]["ingredients"].items():
         resources[item] -= amount
@@ -120,7 +119,6 @@ def main_loop():
             water_ok = check_water_resource(resources["water"])
             milk_ok = check_milk_resource(resources["milk"])
             coffe_ok = check_coffee_resource(resources["coffee"])
-
             if water_ok and milk_ok and coffe_ok:
                 accept_coins(quarter, dime, nickel, penny)
                 deduct_resources()
