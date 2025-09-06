@@ -124,14 +124,11 @@ colors = [
 
 
 def change_facing_direction():
-    for i in range(201):
-        for i in range(40):
-            t.color(random.choice(colors))
-            t.left(i)
-            t.circle(50)
-        t.forward(200)
-    for i in range(3):
-        t.setheading(90 * i)
+    for i in range(600):
+        t.color(random.choice(colors))
+        t.circle(100)
+        t.forward(23)
+        t.left(10)
 
 
 change_facing_direction()
